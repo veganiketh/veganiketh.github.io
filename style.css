@@ -1,0 +1,24 @@
+.header{
+  background-image:url("http://p1.pichost.me/i/63/1874845.jpg");
+    background-size: 1420px;
+}
+
+.header h1 {
+	color: #ffffff;
+	text-align:center;
+    font-family:Opensans-light;
+    font-weight:lighter;
+  font-size: 60px;
+  height: 100px;
+  padding-top: 30px;
+}
+
+.header h2 {
+  color: #ffffff;
+  top: 300px;
+  text-align:center;
+  padding-top:100px;
+  padding-bottom:200px;
+  font-family:Opensans-light;
+  font-size:20px;
+}
