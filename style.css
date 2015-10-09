@@ -16,7 +16,7 @@ html, body {
   margin:0;
   color: #ffffff;
   text-align:center;
-    font-family:Opensans;
+    font-family:Opensans, Helvetica;
     font-weight:lighter;
   font-size: 90px;
   height: 100px;
@@ -28,7 +28,7 @@ html, body {
   color: #ffffff;
   text-align:bottom;
   text-align:center;
-  font-family:Opensans;
+  font-family:Opensans , Helvetica;
     font-weight:lighter;
   font-size: 20px;
    padding-top: 340px;
@@ -61,7 +61,7 @@ html, body {
   background-color:#016e96;
   color: #34baff ;
   text-align:center;
-    font-family:Opensans;
+    font-family:Opensans , Helvetica;
     font-weight:lighter;
   font-size: 40px;
   height: 100px;
@@ -90,7 +90,7 @@ height:70%;
   padding-top:20px;
    padding-left: 12%;
   padding-bottom: 5%;
-    font-family:Opensans;
+    font-family:Opensans , Helvetica;
     font-weight:lighter;
   font-size: 12px;
  }
@@ -101,7 +101,7 @@ height:70%;
   background-color: #1d6c5f;
   color: #12e2c2 ;
   text-align:center;
-    font-family:Opensans;
+    font-family:Opensans , Helvetica;
     font-weight:lighter;
   font-size: 40px;
   height: 100px;
@@ -129,7 +129,7 @@ height:70%;
   text-align:left;
   padding-top:20px;
    padding-left: 12%;
-    font-family:Opensans;
+    font-family:Opensans , Helvetica;
     font-weight:lighter;
   font-size: 12px;
 }
@@ -142,7 +142,7 @@ height:70%;
   text-align:left;
    padding-left: 12%;
   padding-bottom: 5%;
-    font-family:Opensans;
+    font-family:Opensans , Helvetica;
     font-weight:lighter;
   font-size: 12px;
 }
