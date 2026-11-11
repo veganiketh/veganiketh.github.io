@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <script>
+    // Apply the visitor's saved theme before the page draws, so it never flashes.
+    // Dark is the default when nothing has been saved.
+    try {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light' || saved === 'dark') document.documentElement.dataset.theme = saved;
+    } catch (e) {}
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vega — Product Design Lead</title>
+  <meta name="description" content="Product design lead based in Stockholm, designing agentic experiences.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,0..100,0..1;1,9..144,300..600,0..100,0..1&family=Instrument+Sans:wght@400;600&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Icons used by the before/after flow -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 21.5s-7-6.2-7-11.5a7 7 0 0 1 14 0c0 5.3-7 11.5-7 11.5Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+      <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5.5"/><circle cx="12" cy="12" r="2"/></symbol>
+      <symbol id="i-megaphone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 10.5v3l14 5V5.5z"/><path d="M17 8.5h1.5a2.5 2.5 0 0 1 0 7H17"/><path d="M7 14.8V19h3v-3.1"/></symbol>
+      <symbol id="i-brain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M12 5a3 3 0 1 0-6 .1 4 4 0 0 0-2.5 5.8 4 4 0 0 0 .6 6.6A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 6 .1 4 4 0 0 1 2.5 5.8 4 4 0 0 1-.6 6.6A4 4 0 1 1 12 18Z"/><path d="M12 5v13"/></symbol>
+      <symbol id="i-scale" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M12 3v18M7 21h10M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/><path d="m16 16 3-8 3 8c-.9.6-1.9 1-3 1s-2.1-.4-3-1Z"/><path d="m2 16 3-8 3 8c-.9.6-1.9 1-3 1s-2.1-.4-3-1Z"/></symbol>
+      <symbol id="i-trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M22 7l-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></symbol>
+      <symbol id="i-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4v10h2M18 9h2v13h-2M10 6h4M10 10h4M10 14h4M10 18h4"/></symbol>
+      <symbol id="i-sparkle" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4l1.6 4.9L16.5 10.5l-4.9 1.6L10 17l-1.6-4.9L3.5 10.5l4.9-1.6Z"/><path d="M18 14l.8 2.2 2.2.8-2.2.8L18 20l-.8-2.2-2.2-.8 2.2-.8Z"/><path d="M17.5 3l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4L15.5 5l1.4-.6Z"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- Twinkling star background, only visible in dark mode -->
+  <div class="sky" aria-hidden="true"></div>
+
+  <div class="page">
+
+    <!-- Top bar -->
+    <header class="top-bar">
+      <a class="brand" href="#top">
+        <svg viewBox="0 0 30 30" aria-hidden="true"><path d="M15 0L16.3777 11.674L19.95 10.05L18.326 13.6223L30 15L18.326 16.3777L19.95 19.95L16.3777 18.326L15 30L13.6223 18.326L10.05 19.95L11.674 16.3777L0 15L11.674 13.6223L10.05 10.05L13.6223 11.674L15 0Z"/></svg>
+        <span>vega</span>
+      </a>
+      <button class="theme-toggle" type="button" aria-label="Switch to light mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.5"/>
+          <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/>
+        </svg>
+      </button>
+      <nav class="nav">
+        <a href="#work">work</a>
+        <a href="#experience">experience</a>
+        <a href="#contact">contact</a>
+      </nav>
+    </header>
+
+    <main id="top">
+
+      <!-- Intro -->
+      <section class="intro">
+        <!-- Lyra: Vega is me, the other five stars each reveal one headline -->
+        <div class="lyra">
+          <div class="lyra-figure">
+          <svg class="lyra-map" viewBox="0 0 437 329" role="group" aria-label="The constellation Lyra. Choose a star to reveal what I bring.">
+            <g class="lyra-lines">
+              <line x1="407" y1="113" x2="361" y2="30"/>
+              <line x1="407" y1="113" x2="300" y2="126"/>
+              <line x1="361" y1="30" x2="300" y2="126"/>
+              <line x1="300" y1="126" x2="188" y2="106"/>
+              <line x1="188" y1="106" x2="30" y2="282"/>
+              <line x1="30" y1="282" x2="133" y2="299"/>
+              <line x1="133" y1="299" x2="300" y2="126"/>
+            </g>
+
+            <!-- Vega -->
+            <g class="star vega-star" data-pillar="vega" tabindex="0" role="button" aria-controls="pillar-vega" aria-label="Vega: designer and leader">
+              <circle class="hit" cx="407" cy="113" r="24"/>
+              <g transform="translate(392 98)">
+                <path class="dot" d="M15 0L16.3777 11.674L19.95 10.05L18.326 13.6223L30 15L18.326 16.3777L19.95 19.95L16.3777 18.326L15 30L13.6223 18.326L10.05 19.95L11.674 16.3777L0 15L11.674 13.6223L10.05 10.05L13.6223 11.674L15 0Z"/>
+              </g>
+            </g>
+
+            <g class="star" data-pillar="epsilon" tabindex="0" role="button" aria-controls="pillar-epsilon" aria-label="Epsilon Lyrae: Design leadership">
+              <circle class="hit" cx="361" cy="30" r="24"/>
+              <circle class="dot" cx="361" cy="30" r="5"/>
+            </g>
+            <g class="star" data-pillar="zeta" tabindex="0" role="button" aria-controls="pillar-zeta" aria-label="Zeta Lyrae: Direction and strategy">
+              <circle class="hit" cx="300" cy="126" r="24"/>
+              <circle class="dot" cx="300" cy="126" r="5"/>
+            </g>
+            <g class="star" data-pillar="delta" tabindex="0" role="button" aria-controls="pillar-delta" aria-label="Delta Lyrae: Raising quality">
+              <circle class="hit" cx="188" cy="106" r="24"/>
+              <circle class="dot" cx="188" cy="106" r="5"/>
+            </g>
+            <g class="star" data-pillar="sulafat" tabindex="0" role="button" aria-controls="pillar-sulafat" aria-label="Sulafat: Remaining close to the craft">
+              <circle class="hit" cx="30" cy="282" r="24"/>
+              <circle class="dot" cx="30" cy="282" r="6"/>
+            </g>
+            <g class="star" data-pillar="sheliak" tabindex="0" role="button" aria-controls="pillar-sheliak" aria-label="Sheliak: AI-forward, but human-first">
+              <circle class="hit" cx="133" cy="299" r="24"/>
+              <circle class="dot" cx="133" cy="299" r="5.5"/>
+            </g>
+          </svg>
+
+            <!-- Labels sit next to their star; --x and --y match the star's position in the drawing -->
+            <div class="lyra-labels" aria-live="polite">
+              <div class="pillar" id="pillar-vega" style="--x: 407; --y: 113" hidden>
+                <p class="big">Vega</p>
+                <small>designer + leader</small>
+              </div>
+              <div class="pillar" id="pillar-epsilon" style="--x: 361; --y: 30" hidden>
+                <p class="big">Design leadership</p>
+                <small>managing a team of 2 mid-senior designers,</small>
+              </div>
+              <div class="pillar" id="pillar-zeta" style="--x: 300; --y: 126" hidden>
+                <p class="big">Direction and strategy</p>
+                <small>in pivotal product moments with the leadership constellation</small>
+              </div>
+              <div class="pillar" id="pillar-delta" style="--x: 188; --y: 106" hidden>
+                <p class="big">Raising quality</p>
+                <small>by putting our users needs first and ensuring that we release features we feel proud of</small>
+              </div>
+              <div class="pillar" id="pillar-sulafat" style="--x: 30; --y: 282" hidden>
+                <p class="big">Remaining close to the craft</p>
+                <small>by actively designing and contributing to projects</small>
+              </div>
+              <div class="pillar" id="pillar-sheliak" style="--x: 133; --y: 299" hidden>
+                <p class="big">AI-forward, but <em>human-first</em></p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <p class="intro-lede">12+ years of Design work experience. I’ve been spending the last 9 years immersed in data-driven product design at fast-paced SaaS start-up/scale-ups in Stockholm, most recently designing agentic experiences and AI workflows. I care deeply about ensuring that the work we do has a direct and measurable impact on the users' experience of the product.</p>
+
+        <div class="intro-footer">
+        <p class="intro-lede intro-location"><svg class="pin" aria-hidden="true"><use href="#i-pin"/></svg>Stockholm, Sweden</p>
+
+          <!-- Quick contact buttons. Replace the placeholder email in data-email. -->
+          <div class="quick-links">
+            <button class="quick-link copy-email" type="button" data-email="hello@example.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg><span class="copy-label">Email</span></button>
+            <a class="quick-link" href="resume.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg><span>Resume</span></a>
+          </div>
+        </div>
+      </section>
+
+      <div class="blocks">
+
+        <!-- Experience -->
+        <section class="block block--peach" id="work">
+          <div class="role">
+            <div class="role-text">
+              <div class="date-row">
+                <div class="badge"><img src="images/flower.svg" width="44.5" height="42" alt=""></div>
+                <p class="date">2024-Present</p>
+              </div>
+              <h1 class="title title--light">Design Lead role</h1>
+              <p class="desc">Design lead at Alva Labs during a fundamental product shift from a psychometrics focused product to an <strong>agentic hiring system</strong></p>
+            </div>
+            <!-- Before / after flow, built in HTML so it resizes with the page -->
+            <figure class="flow role-image" role="img" aria-label="Before: Define and Attract happened in the customer's ATS, Alva covered Assess and Decide, and Improve was missing. After: Alva covers all five stages, Define, Attract, Assess, Decide and Improve, with agent workflows running across every stage.">
+              <div class="flow-row">
+                <p class="flow-head"><em>Before</em><span class="flow-tag">Psychometrics</span></p>
+                <div class="flow-grid">
+                <div class="step step--light"><svg class="step-icon"><use href="#i-target"/></svg>Define</div>
+                <div class="step step--light"><svg class="step-icon"><use href="#i-megaphone"/></svg>Attract</div>
+                <div class="step step--dark"><svg class="step-icon"><use href="#i-brain"/></svg>Assess</div>
+                <div class="step step--dark"><svg class="step-icon"><use href="#i-scale"/></svg>Decide</div>
+                <div class="step step--ghost"><svg class="step-icon"><use href="#i-trend"/></svg>Improve</div>
+                <div class="bracket bracket--muted" style="--from: 1; --to: 3"><span class="bracket-line"></span><span class="bracket-label caption"><svg><use href="#i-building"/></svg>their ATS</span></div>
+                <div class="bracket" style="--from: 3; --to: 5"><span class="bracket-line"></span><span class="bracket-label caption">Alva</span></div>
+                </div>
+              </div>
+              <div class="flow-row">
+                <p class="flow-head"><em>After</em><span class="flow-tag">Hiring System</span></p>
+                <div class="flow-grid">
+                <div class="step step--dark"><svg class="step-icon"><use href="#i-target"/></svg>Define<span class="sparkle"><svg><use href="#i-sparkle"/></svg></span></div>
+                <div class="step step--dark"><svg class="step-icon"><use href="#i-megaphone"/></svg>Attract<span class="sparkle"><svg><use href="#i-sparkle"/></svg></span></div>
+                <div class="step step--dark"><svg class="step-icon"><use href="#i-brain"/></svg>Assess<span class="sparkle"><svg><use href="#i-sparkle"/></svg></span></div>
+                <div class="step step--dark"><svg class="step-icon"><use href="#i-scale"/></svg>Decide<span class="sparkle"><svg><use href="#i-sparkle"/></svg></span></div>
+                <div class="step step--dark"><svg class="step-icon"><use href="#i-trend"/></svg>Improve<span class="sparkle"><svg><use href="#i-sparkle"/></svg></span></div>
+                <div class="bracket" style="--from: 1; --to: 6"><span class="bracket-line"></span><span class="bracket-label caption"><svg><use href="#i-sparkle"/></svg>Alva, with agent workflows running across every stage</span></div>
+                </div>
+              </div>
+            </figure>
+          </div>
+
+          <img class="divider" src="images/divider.svg" alt="">
+
+          <article class="case">
+            <header class="case-hero">
+              <p class="case-number">01.</p>
+              <h2 class="title"><a class="case-link" href="hiring-system-pivot.html">Hiring system pivot</a></h2>
+              <dl class="project-facts case-hero-facts">
+                <div><dt>When</dt><dd>April 2026</dd></div>
+                <div><dt>Role</dt><dd>Design lead</dd></div>
+                <div><dt>For</dt><dd>Recruiter platform</dd></div>
+              </dl>
+            </header>
+            <p class="desc case-desc">Alva Labs grew from a psychometric testing provider into an <strong>end-to-end hiring system</strong>, so recruiters can run their whole hiring process in one place instead of alongside an ATS.</p>
+            <figure class="shot shot--wide">
+              <!-- Short looping animation: a top-scoring candidate moves through to Hired -->
+              <div class="hire-anim" role="img" aria-label="Animation of the hiring board: Amina Hassan, a candidate with an 87% psychometrics score and high role fit, moves from Psychometrics to Hiring manager interview, is scored 85% in her interview, and then moves to Hired.">
+                <div class="hire-stage" aria-hidden="true">
+                  <div class="hc-col hc-col--peach" style="left:24px">
+                    <div class="hc-head">Psychometrics <span class="hc-count hc-tally hc-tally--screen"><span>3</span><span>2</span></span></div>
+                    <div class="hc-card hc-axel">
+                      <div class="hc-row"><b>Axel Magnusson</b><span class="hc-score">72%</span></div>
+                      <span class="hc-status">Assessment completed</span>
+                      <div class="hc-row hc-fit"><span>Role fit</span><span>68% <i class="hc-level hc-medium">Medium</i></span></div>
+                    </div>
+                    <div class="hc-card hc-fernanda">
+                      <div class="hc-row"><b>Fernanda Castillo</b><span class="hc-score hc-nodata">No data</span></div>
+                      <span class="hc-status">Assessment pending</span>
+                      <div class="hc-row hc-fit"><span>Role fit</span><span>60% <i class="hc-level hc-medium">Medium</i></span></div>
+                    </div>
+                  </div>
+                  <div class="hc-col hc-col--peach" style="left:336px">
+                    <div class="hc-head">Hiring manager interview <span class="hc-count hc-tally hc-tally--hm"><span>2</span><span>3</span></span></div>
+                    <div class="hc-card hc-ifeoma">
+                      <div class="hc-row"><b>Ifeoma Nwachukwu</b><span class="hc-score">79%</span></div>
+                      <span class="hc-status">Interview booked</span>
+                      <div class="hc-row hc-fit"><span>Role fit</span><span>82% <i class="hc-level hc-high">High</i></span></div>
+                    </div>
+                    <div class="hc-card hc-dao">
+                      <div class="hc-row"><b>Dao Vong</b><span class="hc-score">41%</span></div>
+                      <span class="hc-status">Assessment completed</span>
+                      <div class="hc-row hc-fit"><span>Role fit</span><span>35% <i class="hc-level hc-low">Low</i></span></div>
+                    </div>
+                  </div>
+                  <div class="hc-col hc-col--mint" style="left:648px">
+                    <div class="hc-head">Hired <span class="hc-count hc-count--hired hc-tally"><span>0</span><span>1</span></span></div>
+                    <div class="hc-drop"></div>
+                  </div>
+                  <div class="hc-card hc-amina">
+                    <div class="hc-row"><b>Amina Hassan</b><span class="hc-score hc-states hc-amina-score"><span>87%</span><span class="hc-nodata">No data</span><span>85%</span></span></div>
+                    <span class="hc-status hc-swap"><span>Assessment completed</span><span>Hired</span></span>
+                    <div class="hc-row hc-fit"><span>Role fit</span><span><span class="hc-states hc-amina-fit"><span>82%</span><span>84%</span></span> <i class="hc-level hc-high">High</i></span></div>
+                    <div class="hc-confetti">
+                      <i style="--dx:15px;--dy:-101px;--fall:110px;--r:-442deg;--d:0.00s;background:#e58a8c;width:6px;height:4px"></i>
+                      <i style="--dx:37px;--dy:-46px;--fall:67px;--r:499deg;--d:0.00s;background:#f5c542;width:6px;height:10px"></i>
+                      <i style="--dx:72px;--dy:-67px;--fall:68px;--r:-48deg;--d:0.03s;background:#7cc6a4;width:6px;height:4px"></i>
+                      <i style="--dx:-120px;--dy:-48px;--fall:75px;--r:-83deg;--d:0.04s;background:#f2a46f;width:8px;height:4px"></i>
+                      <i style="--dx:-119px;--dy:-47px;--fall:134px;--r:272deg;--d:0.00s;background:#b9a7f0;width:6px;height:10px"></i>
+                      <i style="--dx:135px;--dy:-103px;--fall:97px;--r:318deg;--d:0.00s;background:#9c3739;width:6px;height:4px"></i>
+                      <i style="--dx:142px;--dy:-81px;--fall:131px;--r:-170deg;--d:0.04s;background:#e58a8c;width:6px;height:4px"></i>
+                      <i style="--dx:-54px;--dy:-73px;--fall:72px;--r:-412deg;--d:0.04s;background:#f5c542;width:8px;height:10px"></i>
+                      <i style="--dx:-45px;--dy:-57px;--fall:128px;--r:335deg;--d:0.04s;background:#7cc6a4;width:7px;height:12px"></i>
+                      <i style="--dx:82px;--dy:-74px;--fall:98px;--r:-32deg;--d:0.06s;background:#f2a46f;width:6px;height:4px"></i>
+                      <i style="--dx:-26px;--dy:-110px;--fall:133px;--r:74deg;--d:0.02s;background:#b9a7f0;width:8px;height:12px"></i>
+                      <i style="--dx:79px;--dy:-84px;--fall:137px;--r:-391deg;--d:0.03s;background:#9c3739;width:6px;height:4px"></i>
+                      <i style="--dx:-66px;--dy:-77px;--fall:79px;--r:461deg;--d:0.05s;background:#e58a8c;width:7px;height:10px"></i>
+                      <i style="--dx:-111px;--dy:-49px;--fall:133px;--r:102deg;--d:0.02s;background:#f5c542;width:7px;height:4px"></i>
+                      <i style="--dx:104px;--dy:-46px;--fall:118px;--r:-400deg;--d:0.03s;background:#7cc6a4;width:6px;height:12px"></i>
+                      <i style="--dx:-117px;--dy:-113px;--fall:99px;--r:372deg;--d:0.03s;background:#f2a46f;width:7px;height:4px"></i>
+                      <i style="--dx:27px;--dy:-118px;--fall:119px;--r:187deg;--d:0.00s;background:#b9a7f0;width:6px;height:4px"></i>
+                      <i style="--dx:102px;--dy:-113px;--fall:87px;--r:48deg;--d:0.01s;background:#9c3739;width:6px;height:4px"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </figure>
+            <a class="case-cta" href="hiring-system-pivot.html">Read about it <span aria-hidden="true">→</span></a>
+          </article>
+
+          <img class="divider" src="images/divider.svg" alt="">
+
+          <article class="case">
+            <header class="case-hero">
+              <p class="case-number">02.</p>
+              <h2 class="title"><a class="case-link" href="agentic-hiring-system.html">Agentic hiring system</a></h2>
+              <dl class="project-facts case-hero-facts">
+                <div><dt>When</dt><dd>September 2026</dd></div>
+                <div><dt>Role</dt><dd>Design lead</dd></div>
+                <div><dt>For</dt><dd>Recruiter platform</dd></div>
+              </dl>
+            </header>
+            <p class="desc case-desc">Design lead at Alva Labs during a fundamental product shift from a psychometrics focused product to an <strong>agentic hiring system</strong></p>
+            <figure class="shot shot--wide">
+              <img src="images/agentic-hiring.png" width="856" height="466" alt="Alva Hiring Agent screen">
+            </figure>
+          </article>
+        </section>
+
+        <!-- Designer cases -->
+        <section class="block block--mint" id="cases">
+          <div class="cases-intro">
+            <h2 class="title title--light">Designer cases</h2>
+            <p class="desc">Owned and designed key projects during this pivotal shift in the product offering.</p>
+          </div>
+
+          <img class="divider" src="images/divider.svg" alt="">
+
+          <article class="case">
+            <header class="case-hero">
+              <p class="case-number">01.</p>
+              <h3 class="title">Interview notes</h3>
+              <dl class="project-facts case-hero-facts">
+                <div><dt>When</dt><dd>September 2026</dd></div>
+                <div><dt>Role</dt><dd>Design lead</dd></div>
+                <div><dt>For</dt><dd>Recruiter platform</dd></div>
+              </dl>
+            </header>
+            <p class="desc case-desc">Design lead at Alva Labs during a fundamental product shift from a psychometrics focused product to an <strong>agentic hiring system</strong></p>
+            <figure class="shot shot--wide">
+              <img src="images/agentic-hiring.png" width="856" height="466" alt="Alva Hiring Agent screen">
+            </figure>
+          </article>
+        </section>
+
+      </div>
+
+      <!-- Experience: a short CV timeline -->
+      <section class="experience" id="experience">
+        <h2 class="section-label"><span>Experience</span></h2>
+        <ol class="cv-list">
+            <li>
+              <span class="cv-when">2024 – now</span>
+              <div>
+                <h3 class="cv-role">Product Design Lead <span>Alva Labs, Stockholm</span></h3>
+                <p>Leading a team of two designers through Alva’s shift into an AI-driven, end-to-end hiring system. Part of strategy and vision discussions, and hands-on designer for half my time.</p>
+              </div>
+            </li>
+            <li>
+              <span class="cv-when">2021 – 2023</span>
+              <div>
+                <h3 class="cv-role">Senior Product Designer <span>Alva Labs, Stockholm</span></h3>
+                <p>Designed features for a recruitment platform, making hiring smooth, unbiased and intuitive.</p>
+              </div>
+            </li>
+            <li>
+              <span class="cv-when">2020 – 2021</span>
+              <div>
+                <h3 class="cv-role">UX Designer <span>LogicMonitor, Stockholm</span></h3>
+                <p>Brought logs into a metrics-based monitoring product after LogicMonitor acquired Unomaly, working in a distributed UX team with a large design system.</p>
+              </div>
+            </li>
+            <li>
+              <span class="cv-when">2017 – 2020</span>
+              <div>
+                <h3 class="cv-role">UX Designer <span>Unomaly, Stockholm</span></h3>
+                <p>First designer at an anomaly detection product. Set up the team’s design process, ran user research and designed features from whiteboard to polished UI.</p>
+              </div>
+            </li>
+            <li>
+              <span class="cv-when">2014 – 2015</span>
+              <div>
+                <h3 class="cv-role">UX and UI Designer <span>Rezonant Designs, Bangalore</span></h3>
+                <p>Client work on an e-commerce platform and an internal communication tool.</p>
+              </div>
+            </li>
+        </ol>
+
+        <h2 class="section-label section-label--spaced"><span>Education</span></h2>
+        <ol class="cv-list cv-list--compact">
+            <li>
+              <span class="cv-when">2015 – 2016</span>
+              <div>
+                <h3 class="cv-role">Digital Data Strategy <span>Hyper Island, Stockholm</span></h3>
+              </div>
+            </li>
+            <li>
+              <span class="cv-when">2008 – 2013</span>
+              <div>
+                <h3 class="cv-role">Graphic Design <span>MIT Institute of Design, Pune</span></h3>
+              </div>
+            </li>
+        </ol>
+      </section>
+
+      <!-- Contact -->
+      <section class="block block--lilac contact" id="contact">
+        <div class="contact-body">
+          <img class="contact-photo" src="images/vega-photo.jpg" width="400" height="400" alt="Vega standing in profile in a room of glowing purple balloons">
+          <div class="contact-info">
+            <h2 class="title title--light contact-title">Let’s talk</h2>
+            <p class="desc">Placeholder: a short line about what you’d like to hear about, such as design leadership roles, collaborations or a coffee in Stockholm.</p>
+            <ul class="contact-list">
+              <li><span class="caption">Email</span><button class="contact-value copy-email" type="button" data-email="hello@example.com"><span class="copy-label">hello@example.com</span></button></li>
+              <li><span class="caption">LinkedIn</span><a class="contact-value" href="#">linkedin.com/in/your-profile</a></li>
+              <li><span class="caption">Resume</span><a class="contact-value" href="resume.pdf" target="_blank" rel="noopener">Open PDF</a></li>
+              <li><span class="caption">Based in</span><span class="contact-value">Stockholm, Sweden</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="site.js"></script>
+  <script>
+    // Scale the hiring animation board (drawn at 960px wide) to fit its frame.
+    document.querySelectorAll('.hire-anim').forEach((box) => {
+      const fit = () => box.style.setProperty('--s', box.clientWidth / 960);
+      new ResizeObserver(fit).observe(box);
+      fit();
+    });
+  </script>
+  <script>
+    // Lyra: hovering, focusing or tapping a star reveals its label.
+    // The label disappears when the cursor leaves the constellation,
+    // when keyboard focus moves away, or when you tap elsewhere.
+    const figure = document.querySelector('.lyra-figure');
+    const stars = document.querySelectorAll('.star');
+
+    function show(star) {
+      stars.forEach(s => s.classList.toggle('is-active', s === star));
+      document.querySelectorAll('.pillar').forEach(p => {
+        p.hidden = !star || p.id !== 'pillar-' + star.dataset.pillar;
+      });
+    }
+
+    stars.forEach(star => {
+      star.addEventListener('mouseenter', () => show(star));
+      star.addEventListener('focus', () => show(star));
+      star.addEventListener('blur', () => show(null));
+      star.addEventListener('click', () => show(star));
+      star.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(star); }
+        if (e.key === 'Escape') { show(null); }
+      });
+    });
+
+    figure.addEventListener('mouseleave', () => show(null));
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.star')) show(null);
+    });
+  </script>
+</body>
+</html>
