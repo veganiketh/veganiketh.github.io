@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en" data-theme="dark" class="no-snap">
+<head>
+  <meta charset="utf-8">
+  <script>
+    // Apply the visitor's saved theme before the page draws, so it never flashes.
+    // Dark is the default when nothing has been saved.
+    try {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light' || saved === 'dark') document.documentElement.dataset.theme = saved;
+    } catch (e) {}
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interview notes — Vega</title>
+  <meta name="description" content="Case study: designing interview notes in Alva's hiring system.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,0..100,0..1;1,9..144,300..600,0..100,0..1&family=Instrument+Sans:wght@400;600&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Twinkling star background, only visible in dark mode -->
+  <div class="sky" aria-hidden="true"></div>
+
+  <div class="page">
+
+    <!-- Top bar -->
+    <header class="top-bar">
+      <a class="brand" href="index.html">
+        <svg viewBox="0 0 30 30" aria-hidden="true"><path d="M15 0L16.3777 11.674L19.95 10.05L18.326 13.6223L30 15L18.326 16.3777L19.95 19.95L16.3777 18.326L15 30L13.6223 18.326L10.05 19.95L11.674 16.3777L0 15L11.674 13.6223L10.05 10.05L13.6223 11.674L15 0Z"/></svg>
+        <span>vega</span>
+      </a>
+      <button class="theme-toggle" type="button" aria-label="Switch to light mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.5"/>
+          <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/>
+        </svg>
+      </button>
+      <nav class="nav">
+        <a href="index.html#work">work</a>
+        <a href="index.html#experience">experience</a>
+        <a href="index.html#contact">contact</a>
+      </nav>
+    </header>
+
+    <a class="back-link" href="index.html#cases"><span aria-hidden="true">←</span> All work</a>
+
+    <main class="project">
+
+      <header class="project-hero">
+        <p class="case-number">01.</p>
+        <h1 class="project-title">Interview notes</h1>
+        <dl class="project-facts">
+          <div><dt>When</dt><dd>September 2026</dd></div>
+          <div><dt>Role</dt><dd>Design lead</dd></div>
+          <div><dt>For</dt><dd>Recruiter platform</dd></div>
+        </dl>
+      </header>
+
+      <section class="goals goals--single" aria-label="Problem">
+        <div class="goal">
+          <h2 class="eyebrow">Problem</h2>
+          <p>It is difficult for users, especially interviewers and hiring managers, to take accurate notes and score candidates fairly during an interview.</p>
+        </div>
+      </section>
+
+      <section class="project-section project-section--wide">
+        <h2 class="section-label"><span>Context</span></h2>
+        <p class="body-text">Structured interviews have been part of the Alva offering for several years and have been scientifically proven to be the most consistent predictor of work success. It is critical to improve the interviewing experience for users of Alva and ensure that they are able to set up interviews with candidates, prepare the questions to cover all the key assessment areas, and then evaluate all candidates equally and without biases.</p>
+      </section>
+
+      <section class="project-section project-section--wide">
+        <h2 class="section-label"><span>Problem statements</span></h2>
+        <p class="body-text">Based on user interviews and scraping of sales and customer success discussions.</p>
+        <ol class="feature-list">
+          <li><span>As a recruiter attending multiple back-to-back interviews, it can be difficult to take notes, score candidates and remember what was said when I don’t have time right after each interview to process.</span></li>
+          <li><span>As the TA running the hiring process, I have to chase hiring managers and interviewers to score candidates and complete the scorecards.</span></li>
+          <li><span>As the TA running the hiring process, I can see that different interviewers score candidates differently, while also scoring different candidates in the same process in an inconsistent way. For us, consistency is key to a structured and scalable process.</span></li>
+          <li><span>As an interviewer, it is hard for me to keep a natural interview discussion going while also taking notes on noteworthy and relevant points.</span></li>
+        </ol>
+      </section>
+
+      <section class="project-section project-section--wide">
+        <h2 class="section-label"><span>Agentic transcription to scorecard</span></h2>
+        <p class="body-text">At around the same time, we released a flow that ties into this one and helps with agentic scheduling of interviews. Using a third-party tool for this also ensured that we had the tool available for capturing transcriptions during the interviews.</p>
+        <p class="body-text">Once we had the transcription, the key question was how we could use it to provide the most value.</p>
+        <p class="body-text">Our solution was to use the Alva agent, educated in research and hiring science, to help evaluate interview transcripts and provide suggestions on the notes.</p>
+      </section>
+
+      <figure class="shot project-shot">
+        <video class="walkthrough" src="images/notes-3-automatic-population.mp4" poster="images/notes-3-automatic-population-poster.jpg" width="1200" height="766" autoplay muted loop playsinline preload="metadata" aria-label="Screen recording of the chosen direction: after a transcript is uploaded, the agent’s suggested comments fill each scorecard section, the suggested score stays blurred until the interviewer picks their own, and the evidence behind each suggestion opens in a dialog"></video>
+        <figcaption class="caption">The chosen direction: suggestions fill the scorecard, and the suggested score stays blurred until the interviewer scores</figcaption>
+      </figure>
+
+      <section class="project-section project-section--wide">
+        <h3 class="list-heading">Key goals</h3>
+        <ol class="feature-list">
+          <li><span>Reduce the manual note-taking burden for interviewers</span></li>
+          <li><span>Provide consistent, criteria-based scoring suggestions across interviews</span></li>
+          <li><span>Surface key moments and quotes from candidate responses</span></li>
+          <li><span>Help calibrate evaluations and reduce bias through structured feedback</span></li>
+        </ol>
+      </section>
+
+      <section class="project-section project-section--wide">
+        <h2 class="section-label"><span>Agent vs human</span></h2>
+        <p class="body-text">But hiring is sensitive and should be a human-led process. So we worked on defining some clear boundaries for the agent in the process.</p>
+      </section>
+
+      <section class="goals" aria-label="Agent vs human">
+        <div class="goal">
+          <h2 class="eyebrow">The agent</h2>
+          <p>Captures themes, suggests comments and scores, with evidence provided for each suggestion. Must wait for human scoring before revealing the suggested scores.</p>
+        </div>
+        <div class="goal">
+          <h2 class="eyebrow">The human</h2>
+          <p>Decides whether the agent’s comments are accurate and complete, adds their own insights, and must score the candidate themselves before they can see a suggested score from the agent.</p>
+        </div>
+      </section>
+
+      <figure class="shot project-shot shot--small">
+        <div class="reveal-anim" role="img" aria-label="Animation of a scorecard section: the agent's suggested score is blurred. The interviewer selects 4 on the rating scale, and the suggested score of 4 out of 5 is revealed with a note that it matches their score.">
+          <div class="reveal-stage" aria-hidden="true">
+            <p class="rv-title">Technical expertise</p>
+            <div class="rv-comment">Demonstrated strong proficiency in core technologies relevant to the role. Gave a detailed walkthrough of a system migration that reduced latency by 40%.</div>
+            <div class="rv-meta">
+              <span class="rv-label">Suggested score</span>
+              <span class="rv-score">4/5</span>
+              <span class="rv-match">Matches your score</span>
+              <span class="rv-link">Review agent evidence</span>
+            </div>
+            <div class="rv-scale"><span class="rv-opt"><b>1</b><small>Below expectations</small></span><span class="rv-opt"><b>2</b><small>Slightly below</small></span><span class="rv-opt"><b>3</b><small>Meets expectations</small></span><span class="rv-opt rv-opt--pick"><b>4</b><small>Slightly above</small></span><span class="rv-opt"><b>5</b><small>Above expectations</small></span></div>
+            <svg class="rv-cursor" viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.5L10 19z"/></svg>
+          </div>
+        </div>
+        <figcaption class="caption">Suggested score stays blurred until the interviewer scores</figcaption>
+      </figure>
+
+      <section class="project-section project-section--wide">
+        <h2 class="section-label"><span>Solution directions</span></h2>
+        <p class="body-text">The UI was simple but had to be seamless.</p>
+        <ol class="feature-list">
+          <li><span>A separate tab in the scorecard where users could see the suggested content and apply it if they approved. <span class="dir-badge dir-badge--discarded">Discarded</span></span></li>
+          <li><span>A toggle above each content block where the user could swap between their own notes and the agent’s suggestion, and apply it if they chose. <span class="dir-badge dir-badge--discarded">Discarded</span></span></li>
+          <li><span>The agent’s suggestion is automatically filled into the text box, with the suggested score blurred out until the user makes their own selection. Links are easily available to view the evidence behind the scoring. <span class="dir-badge dir-badge--chosen">Chosen</span></span></li>
+        </ol>
+      </section>
+
+      <!-- Solution directions: the two discarded directions side by side -->
+      <div class="directions-media">
+        <figure class="shot">
+          <video class="walkthrough" src="images/notes-1-separate-tab.mp4" poster="images/notes-1-separate-tab-poster.jpg" width="1200" height="766" autoplay muted loop playsinline preload="metadata" aria-label="Screen recording of direction 01: after a transcript is uploaded, the agent’s suggested comments and scores appear in a separate Summary tab, where the interviewer reviews the evidence and applies suggestions to the scorecard"></video>
+          <figcaption class="caption">01 · Separate suggestions tab <span class="dir-badge dir-badge--discarded">Discarded</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <video class="walkthrough" src="images/notes-2-toggle-in-scorecard.mp4" poster="images/notes-2-toggle-in-scorecard-poster.jpg" width="1200" height="766" autoplay muted loop playsinline preload="metadata" aria-label="Screen recording of direction 02: a toggle above each scorecard section switches between the interviewer’s own notes and the agent’s suggestion, which can be applied"></video>
+          <figcaption class="caption">02 · Toggle between notes and suggestion <span class="dir-badge dir-badge--discarded">Discarded</span></figcaption>
+        </figure>
+      </div>
+
+      <section class="project-section project-section--wide">
+        <h2 class="section-label"><span>Chat agent flow</span></h2>
+        <p class="body-text">Any customer pasting a transcription into the chat should be guided into the scorecard flow, so that they must review the notes and score the candidate themselves before they can publish the scorecard.</p>
+      </section>
+
+      <figure class="shot project-shot">
+        <div class="chat-anim" role="img" aria-label="Animation of the Alva agent chat: a recruiter pastes an interview transcript and asks the agent to fill and publish the scorecard. The agent explains that a human must make hiring decisions, says it has added reference scores and comments, and offers a Go to scorecard button, which the recruiter clicks.">
+          <div class="chat-stage" aria-hidden="true">
+            <div class="ch-scroll">
+              <div class="ch-user">Here’s the transcript for an interview I just had. Can you fill and publish the scorecard.</div>
+              <svg class="ch-flower ch-avatar" viewBox="0 0 40 40" aria-hidden="true"><g transform="translate(20 20)"><ellipse rx="5" ry="10" cy="-9" fill="#f6b04a" opacity=".85"/><ellipse rx="5" ry="10" cy="-9" fill="#f08a6a" opacity=".8" transform="rotate(72)"/><ellipse rx="5" ry="10" cy="-9" fill="#f7a8b8" opacity=".8" transform="rotate(144)"/><ellipse rx="5" ry="10" cy="-9" fill="#f6b04a" opacity=".75" transform="rotate(216)"/><ellipse rx="5" ry="10" cy="-9" fill="#f08a6a" opacity=".8" transform="rotate(288)"/></g></svg>
+              <div class="ch-dots"><i></i><i></i><i></i></div>
+              <p class="ch-reply">Great! Based on hiring fairness and ensuring that a human makes hiring decisions, I cannot fill and publish the scorecard for you. However, I have analysed the scorecard and have added reference scoring and comments. You can go into the scorecard, review the notes and the scores and publish it once you have approved!</p>
+              <div class="ch-card">
+                <div class="ch-card-head">
+                  <span class="ch-initials">SJ</span>
+                  <span class="ch-who"><b>Sarah Johnson</b><small>sarah@designco.io</small></span>
+                  <span class="ch-btn">Go to scorecard</span>
+                </div>
+                <div class="ch-card-sec"><small>Interview</small><b>HM Interview - Senior Designer for the growth team</b></div>
+                <div class="ch-card-sec"><small>Interviewers</small><span class="ch-faces"><i style="background:#c9a98f">AK</i><i style="background:#8fa3b8">MR</i><i style="background:#a7b89a">JL</i><i style="background:#b8a0b8">NT</i></span></div>
+              </div>
+            </div>
+            <svg class="ch-cursor" viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.5L10 19z"/></svg>
+          </div>
+        </div>
+        <figcaption class="caption">The agent prepares the scorecard, and the user reviews, scores and publishes it</figcaption>
+      </figure>
+
+      <section class="outcomes" aria-labelledby="outcomes-title">
+        <h2 class="outcomes-label" id="outcomes-title">
+          <svg class="outcomes-star" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 0L16.3777 11.674L19.95 10.05L18.326 13.6223L30 15L18.326 16.3777L19.95 19.95L16.3777 18.326L15 30L13.6223 18.326L10.05 19.95L11.674 16.3777L0 15L11.674 13.6223L10.05 10.05L13.6223 11.674L15 0Z"/></svg>
+          Outcomes
+        </h2>
+        <p class="outcomes-text">A key customer has started using this feature</p>
+        <p class="caption">Very recent release, with metrics set up to capture further insights</p>
+      </section>
+
+      <nav class="project-nav" aria-label="More projects">
+        <a class="next-project prev-project" href="agentic-hiring-system.html">
+          <span class="eyebrow">Previous project · 02.</span>
+          <span class="next-project-title">Agentic hiring system</span>
+          <span class="body-text">The Alva agent this project builds on, grounded in hiring science and working alongside recruiters across every stage of hiring.</span>
+          <span class="next-project-cta"><span aria-hidden="true">←</span> Read about the previous project</span>
+        </a>
+        <div class="next-project next-project--next next-project--soon" aria-disabled="true">
+          <span class="eyebrow">Next project · Designer case 02.</span>
+          <span class="next-project-title">Fair play policy</span>
+          <span class="body-text">Detection measures and consequences for candidates who exhibit dishonest behaviour while completing the psychometric tests.</span>
+          <span class="next-project-cta"><span aria-hidden="true">🚧</span> Under construction</span>
+        </div>
+      </nav>
+
+    </main>
+
+  </div>
+
+  <script src="site.js"></script>
+  <script>
+    // Scale the 960×540 chat animation to fit its box.
+    document.querySelectorAll('.chat-anim, .reveal-anim').forEach((box) => {
+      const fit = () => box.style.setProperty('--s', box.clientWidth / 960);
+      new ResizeObserver(fit).observe(box);
+      fit();
+    });
+  </script>
+  <script>
+    // Respect visitors who ask for less motion: show the still frame and let them press play.
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('video.walkthrough').forEach(v => { v.removeAttribute('autoplay'); v.pause(); v.controls = true; });
+    }
+  </script>
+</body>
+</html>
