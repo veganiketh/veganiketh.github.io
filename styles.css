@@ -52,7 +52,7 @@
   --divider: #6a5a5b;
   --peach: #242120;
   --mint: linear-gradient(132.8deg, #1f2421 14.3%, #1f2324 85.7%);
-  --star-glow: drop-shadow(0 0 3px rgba(255, 255, 255, 0.55));
+  --star-glow: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 12px rgba(255, 255, 255, 0.35));
   --shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
   color-scheme: dark;
 }
@@ -632,9 +632,8 @@ a:hover { color: var(--accent); }
     --big-pad: 24px;
   }
 
-  /* Sections are taller than a phone screen, so snap only when
-     the scroll ends close to a section edge */
-  html { scroll-snap-type: y proximity; scroll-padding-top: 64px; }
+  /* Phones scroll freely, without snapping to sections */
+  html { scroll-snap-type: none; scroll-padding-top: 64px; }
 
   .page { padding: 0 16px 16px; }
 
@@ -2112,4 +2111,34 @@ button.contact-value.is-copied { color: var(--accent); text-decoration: none; }
   .nt-body > span:not(.nt-caret) { clip-path: none; }
   .nt-chip-a, .nt-caret { opacity: 0; }
   .nt-chip-b { opacity: 1; }
+}
+
+/* Vega's glow takes its rose colour in dark mode */
+:root[data-theme="dark"] .star.vega-star .dot {
+  filter: drop-shadow(0 0 4px rgba(229, 138, 140, 0.85)) drop-shadow(0 0 14px rgba(229, 138, 140, 0.4));
+}
+
+/* Constellation stars slowly brighten and dim (never fully off), each on its own rhythm */
+@keyframes star-breathe {
+  0%, 100% { opacity: 1;    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.85)) drop-shadow(0 0 12px rgba(255, 255, 255, 0.4)); }
+  50%      { opacity: 0.8;  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.55)) drop-shadow(0 0 7px rgba(255, 255, 255, 0.18)); }
+}
+@keyframes vega-breathe {
+  0%, 100% { opacity: 1;    filter: drop-shadow(0 0 4px rgba(229, 138, 140, 0.9)) drop-shadow(0 0 14px rgba(229, 138, 140, 0.45)); }
+  50%      { opacity: 0.85; filter: drop-shadow(0 0 3px rgba(229, 138, 140, 0.6)) drop-shadow(0 0 8px rgba(229, 138, 140, 0.2)); }
+}
+:root[data-theme="dark"] .star .dot { animation: star-breathe var(--tw, 5s) ease-in-out var(--tw-delay, 0s) infinite; }
+:root[data-theme="dark"] .star.vega-star .dot { animation-name: vega-breathe; }
+.star[data-pillar="vega"] { --tw: 11s; --tw-delay: 0s; }
+.star[data-pillar="epsilon"] { --tw: 9s; --tw-delay: -2.4s; }
+.star[data-pillar="zeta"] { --tw: 14s; --tw-delay: -6.8s; }
+.star[data-pillar="delta"] { --tw: 10.4s; --tw-delay: -1.2s; }
+.star[data-pillar="sulafat"] { --tw: 13.2s; --tw-delay: -5s; }
+.star[data-pillar="sheliak"] { --tw: 9.6s; --tw-delay: -8s; }
+/* A chosen star stays fully lit */
+:root[data-theme="dark"] .star.is-active .dot,
+:root[data-theme="dark"] .star:hover .dot,
+:root[data-theme="dark"] .star:focus-visible .dot { animation-play-state: paused; opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  :root[data-theme="dark"] .star .dot { animation: none; }
 }
