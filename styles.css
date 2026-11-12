@@ -2051,7 +2051,7 @@ button.contact-value.is-copied { color: var(--accent); text-decoration: none; }
 .nt-chip-a { animation: nt-chip-a var(--loop) ease-out infinite; }
 .nt-chip-b { opacity: 0; animation: nt-chip-b var(--loop) ease-out infinite; }
 .nt-box {
-  position: absolute; left: 90px; top: 100px;
+  position: absolute; left: 90px; top: 65px;
   width: 780px; height: 410px;
   border: 2px solid #e3e5ee;
   border-radius: 18px;
@@ -2142,3 +2142,6 @@ button.contact-value.is-copied { color: var(--accent); text-decoration: none; }
 @media (prefers-reduced-motion: reduce) {
   :root[data-theme="dark"] .star .dot { animation: none; }
 }
+
+/* Sparkle marking the agent's suggestion at the start of the text */
+.nt-spark { display: inline-block; width: 26px; height: 26px; margin-right: 10px; vertical-align: -4px; fill: #6b77d8; }
